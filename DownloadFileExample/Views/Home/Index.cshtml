@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                @using (Ajax.BeginForm("Hello", new AjaxOptions
+                {
+
+                    HttpMethod = "POST",
+                    UpdateTargetId = "message"
+
+                }))
+                {
+                    <div class="form-group">
+                        <label for="name">Say Hello To</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                    </div>
+                    <button type="submit" class="btn btn-default">Say Hello</button>
+                }
+                <div></div>
+                <div id="message">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-default" id="download" type="button">Download File</button>
+                <form id="downloadFile" action="@Url.Content(@"~/Home/DownloadFile")" method="post"></form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+
+
+@section scripts{
+    <script>
+        $(document)
+            .ready(function () {
+                $('#download')
+                    .click(function () {
+                        $('#downloadFile').submit();
+                    });
+            })
+    </script>
+}
